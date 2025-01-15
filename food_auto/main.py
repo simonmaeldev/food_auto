@@ -53,6 +53,9 @@ def recipe_selection_loop(recipe_list: List[Recipe]) -> List[Recipe]:
             continue
             
         # Process selections
+        if not selected:  # If Esc was pressed or no selection made
+            return []
+            
         for choice in selected:
             if choice.startswith("generate"):
                 return selected_recipes
