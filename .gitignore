@@ -9,3 +9,7 @@ wheels/
 # Virtual environments
 .venv
 .aider*
+
+# output and recipe dir
+output/
+recipes/
