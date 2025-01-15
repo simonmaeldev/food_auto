@@ -1,9 +1,20 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "food-auto"
 version = "0.1.0"
-description = "Add your description here"
+description = "Batch cooking helper: generates grocery lists and cooking instructions from recipes"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "pyfzf>=0.3.1",
+    "pydantic>=2.0.0",
 ]
+
+[project.scripts]
+food-auto = "food_auto.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["food_auto"]
