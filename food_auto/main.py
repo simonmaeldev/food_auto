@@ -4,9 +4,9 @@ from pathlib import Path
 from typing import List
 from pyfzf.pyfzf import FzfPrompt
 
-from .recipe_reader import load_recipes
-from .batch_cooking import generate_grocery_list, generate_cooking_instructions
-from .datatypes import Recipe
+from food_auto.recipe_reader import load_recipes
+from food_auto.batch_cooking import generate_grocery_list, generate_cooking_instructions
+from food_auto.datatypes import Recipe
 
 DEFAULT_RECIPE_PATH = "recipes"
 

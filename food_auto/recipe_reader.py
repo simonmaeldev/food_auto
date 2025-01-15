@@ -2,7 +2,7 @@ import re
 from typing import List
 from pathlib import Path
 from datetime import timedelta
-from .datatypes import Ingredient, Recipe, Macros
+from food_auto.datatypes import Ingredient, Recipe, Macros
 
 def load_ingredient(line: str) -> Ingredient:
     """Parse an ingredient line from markdown format to Ingredient object"""

@@ -1,7 +1,7 @@
 from typing import List
 from datetime import date
 from pathlib import Path
-from .datatypes import Recipe, GroceryItem
+from food_auto.datatypes import Recipe, GroceryItem
 
 def generate_grocery_list(recipes: List[Recipe], output_path="output"):
     """
