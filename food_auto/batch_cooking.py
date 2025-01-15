@@ -40,7 +40,7 @@ def generate_grocery_list(recipes: List[Recipe], output_path="output"):
     with open(output_file, "w") as f:
         for item in grocery_dict.values():
             # Format quantities string
-            quantities = ", ".join(f"{qty} {unit}" for unit, qty in item.quantities.items())
+            quantities = ", ".join(f"{qty if qty is not None else ''} {unit}" for unit, qty in item.quantities.items())
             
             # Format line based on whether URL exists
             if item.url:
@@ -65,7 +65,7 @@ def generate_cooking_instructions(recipes: List[Recipe], output_path="output"):
             # Ingredients section
             f.write("## Ingredients\n")
             for ingredient in recipe.ingredients:
-                qty_str = f"{ingredient.quantity} {ingredient.unit}" if ingredient.quantity else ""
+                qty_str = f"{ingredient.quantity if ingredient.quantity is not None else ''} {ingredient.unit}" if ingredient.quantity is not None else ""
                 f.write(f"- [ ] {qty_str} : {ingredient.name}\n")
             f.write("\n")
             
