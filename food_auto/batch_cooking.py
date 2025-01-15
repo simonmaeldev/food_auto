@@ -65,7 +65,9 @@ def generate_cooking_instructions(recipes: List[Recipe], output_path="output"):
             # Ingredients section
             f.write("## Ingredients\n")
             for ingredient in recipe.ingredients:
+                print(ingredient)
                 qty_str = f"{ingredient.quantity if ingredient.quantity is not None else ''} {ingredient.unit}" if ingredient.quantity is not None else ""
+                print(qty_str)
                 f.write(f"- [ ] {qty_str} : {ingredient.name}\n")
             f.write("\n")
             
