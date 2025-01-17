@@ -49,3 +49,7 @@ uv run python food_auto/main.py --path /path/to/recipes
 The program generates two files in the `output` directory:
 - A grocery list (`groceries_YYYY-MM-DD.md`)
 - Cooking instructions (`instructions_YYYY-MM-DD.md`)
+
+### Ideas to go further
+
+code recette -> llm qui extrait ingrédients solides (en dehors des épices) -> fais une requete à une [bdd](https://www.nutritionix.com/) pour récup les macros, multiplie par qtt -> permet d'avoir les macros pour une recette
