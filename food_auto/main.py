@@ -38,24 +38,20 @@ def recipe_selection_loop(recipe_list: List[Recipe]) -> List[Recipe]:
             f"Current number of portions selected: {total_portions}"
         )
         
-        try:
-            # Show fzf prompt
-            selected = fzf.prompt(
-                choices,
-                '--multi --cycle --preview="echo {2}" --delimiter "\t" '
-                '--with-nth=1 --header="' + header + '" '
-                '--header-first --layout=reverse'
-            )
-        except KeyboardInterrupt:  # Catch specific exception for Esc key
+        # Show fzf prompt
+        selected = fzf.prompt(
+            choices,
+            '--multi --cycle --preview="echo {2}" --delimiter "\t" '
+            '--with-nth=1 --header="' + header + '" '
+            '--header-first --layout=reverse'
+        )
+        
+        # If Esc is pressed, fzf returns empty list
+        if not selected:
             print("\nSelection cancelled")
             return []
             
-        if not selected:
-            # If no selection made (Enter pressed without selection)
-            continue
-            
         # Process selections
-            
         for choice in selected:
             if choice.startswith("generate"):
                 return selected_recipes
