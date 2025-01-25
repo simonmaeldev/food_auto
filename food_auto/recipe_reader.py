@@ -60,7 +60,7 @@ def load_recipes(path_dir: str) -> List[Recipe]:
             with open(recipe_file, 'r', encoding='utf-8') as f:
                 lines = f.readlines()
             
-        for line in lines:
+            for line in lines:
             line = line.strip()
             if not line:
                 continue
