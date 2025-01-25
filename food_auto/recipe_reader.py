@@ -94,25 +94,25 @@ def load_recipes(path_dir: str) -> List[Recipe]:
                         recipe_data["carbs"] = float(re.search(r'(\d+)', line).group(1))
                     elif any(x in line for x in ['lipides', 'fat']):
                         recipe_data["fat"] = float(re.search(r'(\d+)', line).group(1))
-        
-        macros = Macros(
-            kcal=recipe_data["kcal"],
-            proteins=recipe_data["proteins"],
-            carbs=recipe_data["carbs"],
-            fat=recipe_data["fat"]
-        )
-        
-        recipes.append(Recipe(
-            name=recipe_data["name"],
-            absolute_path=str(recipe_file.absolute()),
-            nb_portions=recipe_data["nb_portions"],
-            prep_time=recipe_data["prep_time"],
-            cooking_time=recipe_data["cooking_time"],
-            ingredients=ingredients,
-            ustensiles=ustensiles,
-            instructions=instructions,
-            macros=macros
-        ))
+            
+            macros = Macros(
+                kcal=recipe_data["kcal"],
+                proteins=recipe_data["proteins"],
+                carbs=recipe_data["carbs"],
+                fat=recipe_data["fat"]
+            )
+            
+            recipes.append(Recipe(
+                name=recipe_data["name"],
+                absolute_path=str(recipe_file.absolute()),
+                nb_portions=recipe_data["nb_portions"],
+                prep_time=recipe_data["prep_time"],
+                cooking_time=recipe_data["cooking_time"],
+                ingredients=ingredients,
+                ustensiles=ustensiles,
+                instructions=instructions,
+                macros=macros
+            ))
     
         except Exception as e:
             print(f"Error loading recipe {recipe_file}: {str(e)}")
