@@ -61,39 +61,39 @@ def load_recipes(path_dir: str) -> List[Recipe]:
                 lines = f.readlines()
             
             for line in lines:
-            line = line.strip()
-            if not line:
-                continue
-                
-            # Parse headers
-            if line.startswith("# "):
-                recipe_data["name"] = line[2:].strip()
-            elif line.startswith("- nb portions :"):
-                recipe_data["nb_portions"] = int(line.split(":")[-1].strip())
-            elif line.startswith("- temps préparation :"):
-                mins = int(line.split(":")[1].strip().replace("min", ""))
-                recipe_data["prep_time"] = timedelta(minutes=mins)
-            elif line.startswith("- temps cuisson :"):
-                mins = int(line.split(":")[1].strip().replace("min", ""))
-                recipe_data["cooking_time"] = timedelta(minutes=mins)
-            elif line.startswith("## "):
-                current_section = line[3:].lower().strip()
-            elif line.startswith("- [ ]"):
-                if current_section == "ingrédients":
-                    ingredients.append(load_ingredient(line))
-                elif current_section == "ustensiles":
-                    ustensiles.append(line.replace("- [ ]", "").strip())
-                elif current_section == "instructions":
-                    instructions.append(line.replace("- [ ]", "").strip())
-            elif current_section == "macronutriments":
-                if "calories" in line or "kcal" in line:
-                    recipe_data["kcal"] = int(re.search(r'(\d+)', line).group(1))
-                elif any(x in line for x in ['protéines', 'proteins', 'prots']):
-                    recipe_data["proteins"] = float(re.search(r'(\d+)', line).group(1))
-                elif any(x in line for x in ['glucides', 'carbs']):
-                    recipe_data["carbs"] = float(re.search(r'(\d+)', line).group(1))
-                elif any(x in line for x in ['lipides', 'fat']):
-                    recipe_data["fat"] = float(re.search(r'(\d+)', line).group(1))
+                line = line.strip()
+                if not line:
+                    continue
+                    
+                # Parse headers
+                if line.startswith("# "):
+                    recipe_data["name"] = line[2:].strip()
+                elif line.startswith("- nb portions :"):
+                    recipe_data["nb_portions"] = int(line.split(":")[-1].strip())
+                elif line.startswith("- temps préparation :"):
+                    mins = int(line.split(":")[1].strip().replace("min", ""))
+                    recipe_data["prep_time"] = timedelta(minutes=mins)
+                elif line.startswith("- temps cuisson :"):
+                    mins = int(line.split(":")[1].strip().replace("min", ""))
+                    recipe_data["cooking_time"] = timedelta(minutes=mins)
+                elif line.startswith("## "):
+                    current_section = line[3:].lower().strip()
+                elif line.startswith("- [ ]"):
+                    if current_section == "ingrédients":
+                        ingredients.append(load_ingredient(line))
+                    elif current_section == "ustensiles":
+                        ustensiles.append(line.replace("- [ ]", "").strip())
+                    elif current_section == "instructions":
+                        instructions.append(line.replace("- [ ]", "").strip())
+                elif current_section == "macronutriments":
+                    if "calories" in line or "kcal" in line:
+                        recipe_data["kcal"] = int(re.search(r'(\d+)', line).group(1))
+                    elif any(x in line for x in ['protéines', 'proteins', 'prots']):
+                        recipe_data["proteins"] = float(re.search(r'(\d+)', line).group(1))
+                    elif any(x in line for x in ['glucides', 'carbs']):
+                        recipe_data["carbs"] = float(re.search(r'(\d+)', line).group(1))
+                    elif any(x in line for x in ['lipides', 'fat']):
+                        recipe_data["fat"] = float(re.search(r'(\d+)', line).group(1))
         
         macros = Macros(
             kcal=recipe_data["kcal"],
