@@ -1,14 +1,15 @@
 import sys
 import argparse
+import os
 from pathlib import Path
 from typing import List
 from pyfzf.pyfzf import FzfPrompt
+from dotenv import load_dotenv
 
 from food_auto.recipe_reader import load_recipes
 from food_auto.batch_cooking import generate_grocery_list, generate_cooking_instructions
 from food_auto.datatypes import Recipe
 
-DEFAULT_RECIPE_PATH = "recipes"
 
 def recipe_selection_loop(recipe_list: List[Recipe]) -> List[Recipe]:
     """
@@ -72,9 +73,13 @@ def recipe_selection_loop(recipe_list: List[Recipe]) -> List[Recipe]:
 
 def main():
     """Main entry point for the batch cooking program."""
+    # Load environment variables
+    load_dotenv()
+    default_path = os.getenv("DEFAULT_RECIPE_PATH", "recipes")  # Fallback to "recipes" if not set
+    
     # Parse command line arguments
     parser = argparse.ArgumentParser(description="Generate batch cooking instructions and grocery list")
-    parser.add_argument("--path", type=str, default=DEFAULT_RECIPE_PATH,
+    parser.add_argument("--path", type=str, default=default_path,
                        help="Path to recipe directory")
     args = parser.parse_args()
     
