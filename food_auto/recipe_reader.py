@@ -66,7 +66,12 @@ def load_recipes(path_dir: str) -> List[Recipe]:
             ingredients = []
             ustensiles = []
             instructions = []
-            recipe_data = {}
+            recipe_data = {
+                "kcal": 0,
+                "proteins": 0,
+                "carbs": 0,
+                "fat": 0
+            }
             
             with open(recipe_file, 'r', encoding='utf-8') as f:
                 lines = f.readlines()
@@ -97,14 +102,26 @@ def load_recipes(path_dir: str) -> List[Recipe]:
                     elif current_section == "instructions":
                         instructions.append(line.replace("- [ ]", "").strip())
                 elif current_section == "macronutriments":
-                    if "calories" in line or "kcal" in line:
-                        recipe_data["kcal"] = int(re.search(r'(\d+)', line).group(1))
-                    elif any(x in line for x in ['protéines', 'proteins', 'prots']):
-                        recipe_data["proteins"] = float(re.search(r'(\d+)', line).group(1))
-                    elif any(x in line for x in ['glucides', 'carbs']):
-                        recipe_data["carbs"] = float(re.search(r'(\d+)', line).group(1))
-                    elif any(x in line for x in ['lipides', 'fat']):
-                        recipe_data["fat"] = float(re.search(r'(\d+)', line).group(1))
+                    try:
+                        if "calories" in line or "kcal" in line:
+                            match = re.search(r'(\d+)', line)
+                            if match:
+                                recipe_data["kcal"] = int(match.group(1))
+                        elif any(x in line for x in ['protéines', 'proteins', 'prots']):
+                            match = re.search(r'(\d+)', line)
+                            if match:
+                                recipe_data["proteins"] = float(match.group(1))
+                        elif any(x in line for x in ['glucides', 'carbs']):
+                            match = re.search(r'(\d+)', line)
+                            if match:
+                                recipe_data["carbs"] = float(match.group(1))
+                        elif any(x in line for x in ['lipides', 'fat']):
+                            match = re.search(r'(\d+)', line)
+                            if match:
+                                recipe_data["fat"] = float(match.group(1))
+                    except Exception:
+                        # Skip malformed macro lines
+                        continue
             
             macros = Macros(
                 kcal=recipe_data["kcal"],
