@@ -49,7 +49,18 @@ def load_recipes(path_dir: str) -> List[Recipe]:
     recipes = []
     path = Path(path_dir)
     
-    for recipe_file in path.rglob("*.md"):
+    # Check if directory exists
+    if not path.exists():
+        raise FileNotFoundError(f"Recipe directory does not exist: {path_dir}")
+    
+    # Get all markdown files
+    recipe_files = list(path.rglob("*.md"))
+    
+    # Check if directory contains any markdown files
+    if not recipe_files:
+        raise ValueError(f"No markdown files found in recipe directory: {path_dir}")
+    
+    for recipe_file in recipe_files:
         try:
             current_section = None
             ingredients = []
