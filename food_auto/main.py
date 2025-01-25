@@ -46,16 +46,15 @@ def recipe_selection_loop(recipe_list: List[Recipe]) -> List[Recipe]:
                 '--with-nth=1 --header="' + header + '" '
                 '--header-first --layout=reverse'
             )
-        except:
-            # Handle Esc key or other interruptions
-            break
+        except KeyboardInterrupt:  # Catch specific exception for Esc key
+            print("\nSelection cancelled")
+            return []
             
         if not selected:
+            # If no selection made (Enter pressed without selection)
             continue
             
         # Process selections
-        if not selected:  # If Esc was pressed or no selection made
-            return []
             
         for choice in selected:
             if choice.startswith("generate"):
