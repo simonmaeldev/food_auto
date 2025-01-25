@@ -13,3 +13,6 @@ wheels/
 # output and recipe dir
 output/
 recipes/
+
+# dotenv file
+.env
