@@ -49,15 +49,16 @@ def load_recipes(path_dir: str) -> List[Recipe]:
     recipes = []
     path = Path(path_dir)
     
-    for recipe_file in path.glob("*.md"):
-        current_section = None
-        ingredients = []
-        ustensiles = []
-        instructions = []
-        recipe_data = {}
-        
-        with open(recipe_file) as f:
-            lines = f.readlines()
+    for recipe_file in path.rglob("*.md"):
+        try:
+            current_section = None
+            ingredients = []
+            ustensiles = []
+            instructions = []
+            recipe_data = {}
+            
+            with open(recipe_file, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
             
         for line in lines:
             line = line.strip()
@@ -112,5 +113,9 @@ def load_recipes(path_dir: str) -> List[Recipe]:
             instructions=instructions,
             macros=macros
         ))
+    
+        except Exception as e:
+            print(f"Error loading recipe {recipe_file}: {str(e)}")
+            continue
     
     return recipes
