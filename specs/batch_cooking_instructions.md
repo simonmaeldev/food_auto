@@ -1,4 +1,5 @@
 # Batch cooking instruction generator
+
 > Ingest the information from this file, implement the Low-Level Tasks, and generate the code that will satisfy the High and Mid-Level Objectives.
 
 ## High-Level Objective
@@ -38,6 +39,7 @@
 - `src/datatypes.py` (new)
 
 ## Low-Level Tasks
+
 > Ordered from start to finish
 
 1. Create the datatypes in `datatypes.py`
@@ -67,6 +69,7 @@ CREATE src/recipe_reader.py:
 ```
 
 3. Modify `recipe_reader.py`
+
 ```aider
 MODIFY src/recipe_reader.py:
 
@@ -81,7 +84,7 @@ MODIFY src/recipe_reader.py:
 
 4. Create `batch_cooking.py`
 
-```aider
+````aider
 CREATE src/batch_cooking.py:
     ADD function `generate_grocery_list(recipes:List[Recipe], output_path="output")
         the goal is to generate a grocery list with all the ingredients needed for all the recipes
@@ -115,10 +118,11 @@ CREATE src/batch_cooking.py:
 - [ ] instruction 3
 - [ ] instruction 4
             ```
-```
+````
 
 5. Create `main.py`
-```aider
+
+````aider
 CREATE src/main.py:
 
     ADD def `recipe_selection_loop(recipe_list:List[Recipe]) -> List[Recipe]`:
@@ -136,4 +140,4 @@ CREATE src/main.py:
         load all the recipes in this dir using `load_recipes`
         loop the recipe_selection_loop
         generate the batch cooking grocery list and cooking instructions
-```
+````

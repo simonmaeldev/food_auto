@@ -1,6 +1,8 @@
-from pydantic import BaseModel
-from typing import Optional, List, Dict
 from datetime import timedelta
+from typing import Dict, List, Optional
+
+from pydantic import BaseModel
+
 
 class Ingredient(BaseModel):
     url: Optional[str] = None
@@ -8,11 +10,13 @@ class Ingredient(BaseModel):
     quantity: Optional[float] = None
     unit: Optional[str] = None
 
+
 class Macros(BaseModel):
     kcal: int
     proteins: float
     carbs: float
     fat: float
+
 
 class Recipe(BaseModel):
     name: str
@@ -24,6 +28,7 @@ class Recipe(BaseModel):
     ustensiles: List[str]
     instructions: List[str]
     macros: Macros
+
 
 class GroceryItem(BaseModel):
     name: str
